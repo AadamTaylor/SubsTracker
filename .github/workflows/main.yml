@@ -1,0 +1,11 @@
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Replace KV ID in wrangler.toml
+        run: sed -i 's/id = ".*"/id = "'"${{ secrets.ID }}"'"/' wrangler.toml
+
+      - name: Deploy Worker
+        run: npx wrangler deploy
